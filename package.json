@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "axios": "^0.27.2",
+    "fetch": "^1.1.0",
+    "node-fetch": "^3.2.10",
+    "path": "^0.12.7",
+    "undici": "^5.8.2"
+  }
+}
