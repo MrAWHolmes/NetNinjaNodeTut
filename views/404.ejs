@@ -1,0 +1,14 @@
+<html>
+  <!-- use &gt%- so html renders as html 
+    and not as escape strings as is the case with  &gt%=   -->
+    <%- include("./partials/header.ejs")%>
+  
+  <body>
+      <!-- Use - instead of = in ejs tag so var not special escaped etc -->
+      <%- include("./partials/navigation.ejs");  %>
+    <div class="404 content">
+      <h2>not found ...</h2>
+    </div>
+  </body>
+  <%- include("./partials/footer.ejs") %>
+</html>

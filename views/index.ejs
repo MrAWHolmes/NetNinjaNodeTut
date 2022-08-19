@@ -1,0 +1,26 @@
+<html>
+  <!-- use &gt%- so html renders as html 
+    and not as escape strings as is the case with  &gt%=   -->
+   <%- include("./partials/header.ejs")%>
+  <body>
+    <!-- Use - instead of = in ejs tag so var not special escaped etc -->
+    <%- include("./partials/navigation.ejs");  %>
+
+    <div class="blog content">
+      <h2>All Blogs</h2>
+      <% if (blogs.length > 0){ %>
+         <% blogs.forEach(element => { %>
+          <hr>
+           <h2><%= element.title %></h2>
+           <h3><%= element.snippet %></h3>
+           <p><%= element.body %></p>
+         
+         <% }) //forEach{ %>
+       <% } else { %>
+        <hr>
+        <h2> There are no blogs to display</h2>
+      <% }; //else %>
+    </div>
+    <%- include("./partials/footer.ejs") %>
+  </body>
+</html>
