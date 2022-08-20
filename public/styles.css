@@ -1,5 +1,4 @@
-        <!-- included here as static route not configured yet! -->
-        @import url("https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap");
 body {
   max-width: 1200px;
   margin: 20px auto;
@@ -88,4 +87,3 @@ textarea {
   font-size: 1.2em;
   cursor: pointer;
 }
-
