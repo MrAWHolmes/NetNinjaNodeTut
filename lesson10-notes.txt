@@ -1,0 +1,136 @@
+NOTES FROM LESSON10:
+
+https://youtu.be/VVGgacjzc2Y?list=PL4cUxeGkcC9jsz4LDYc6kv3ymONOKxwBU
+
+SLIDE  - REQUEST TYPES
+
+* GET - requests toget aresource
+* POST - request to create new data
+* DELETE- request to delete data
+* PUT - request to update data
+
+
+SLIDE - OUR PROJECT REQUEST TYPES & ROUTES:
+
+TYPICAL ROUTE STRUCTURE FOR CRUD APP
+
+ROUTE                                                                           METHOD
+localhost:3000/blogs                                                            GET
+localhost:3000/blogs/create                                                     GET
+
+
+localhost:3000/blogs                                                            POST            CREATE
+
+localhost:3000/blogs:id                                                         GET             READ
+localhost:3000/blogs:id                                                         DELETE          DELETE
+localhost:3000/blogs:id                                                         PUT             UPDATE
+
+
+first 2 requests are already handled:
+localhost:3000/blogs                                                            GET
+localhost:3000/blogs/create                                                     GET
+
+
+We need to develop C, R D. We will not do UPDATE/PUT
+
+
+#2 POST requests
+
+We will get data from the webform itself.
+
+Edit> views/createBlog.ejs
+change <form> tag to <form action="/blogs" method="post">
+
+and add name= attributes for all input data tags
+
+When tested we do get 404 but morgan confirms the post method was fired!
+
+We code a route handler in server.js as a callback
+function
+
+I have coded it thus just to test the route and what data we get?
+
+// using callback at moment - vb will try MVC it...
+server.post("/blogs",()=>{
+  console.log(req.body);
+  res.send(res.body);
+});
+
+RUN!
+
+ERROR! Forgot toadd (req,res)  params to callback!
+
+// using callback at moment - vb will try MVC it...
+server.post("/blogs",(req,res)=>{
+  console.log(req.body);
+  res.send(res.body);
+});
+
+archie@archie-SATELLITE-P50-C:~/Documents/PRE-LIGHTSAIL/NetNinjaNodeTut$ node serverv10a.js 
+connected to Atlas dbase : netninjas...
+Express listenning on port 3000
+
+
+New request :
+        host:   localhost
+        path:   /blogs
+        method: POST
+undefined
+POST /blogs 200 16.025 ms - -
+
+
+how to get the data back?
+
+We have to use express middleware:
+
+express.urlencoded({extended:true});
+
+So add a use clause for this with other middleare...
+
+server.use(express.urlencoded({extended:true}));
+
+and now hitting the endpoint yields:
+
+archie@archie-SATELLITE-P50-C:~/Documents/PRE-LIGHTSAIL/NetNinjaNodeTut$ node serverv10a.js 
+connected to Atlas dbase : netninjas...
+Express listenning on port 3000
+New request :
+        host:   localhost
+        path:   /blogs
+        method: POST
+{ title: 'title-sun', '~snippet~': 'snip-sun', body: 'lol-sun1' }
+POST /blogs 200 6.899 ms - -
+
+Note: wedo not get the data object unless we use the express
+.urlencoded() middleware
+
+We can create a new blog right here
+
+however note the req.body is exactly the object we want
+
+so we can just go 
+const newBlog = new Blog(req.body);
+
+Code that works:
+
+// using callback at moment - vb will try MVC it...
+server.post("/blogs",(req,res)=>{
+  console.log(req.body);
+  const newBlog = new Blog(req.body);
+  newBlog.save()
+  .then( (result)=>{
+    // promise to save the Blog
+    res.redirect("/blogs");
+  })
+  .catch((e)=>{
+    console.log(e.message);
+    throw e;
+  });
+  //res.end());
+});
+
+Yes!
+
+NOW SLIDE ON ROUTE PARAMETERS :id
+
+In the route localhost:3000/blogs/:id :id it the parameter and can change

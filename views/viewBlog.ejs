@@ -9,13 +9,13 @@
   
 
     <div class="createBlog content">
-      <form action="/blogs" method="post">
+      <form >
         <label for="title">Blog Title:</label>
-        <input type="text" name="title" id="title" placeholder = "<%= atitle %>"  required >
+        <input type="text" name="title" id="title" value="<%= blog.title %>""  required >
          <label for="snippet">Blog snippet:</label>
-        <input type="text" name="snippet" id="snippet" placeholder = "<%= asnippet %>" required />
+        <input type="text" name="snippet" id="snippet" value="<%= blog.snippet %>" required />
         <label for="body">Blog body:</label>
-        <textarea name="body" id="body" required placeholder="<%= abody %>" ></textarea>
+        <input name="body" id="body" required value="<%= blog.body %>"" >
         <button>Submit</button>
       </form>
     </div>
