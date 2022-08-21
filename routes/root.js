@@ -15,7 +15,7 @@ htmlIndex = async (req, res) => {
   let emptyBlog = [];
 
   // Async call to Blog.find()
-  let blogArr = await Blog.find();
+  let blogArr = await Blog.find().sort({ createdat: -1 });
 
   console.log(blogArr);
 
